@@ -1,0 +1,30 @@
+# User & Host Data
+# data/
+
+# Info
+info/
+
+# Obsidian Vault
+.obsidian/
+
+# Environments
+.direnv/
+venv
+
+# Test results
+result
+
+# Legacy
+.bkp/
+
+# Logs, etc
+*.log
+
+# VM
+*.qcow2
+
+# Rust
+rust/target
+
+# Haskell
+dist-newstyle

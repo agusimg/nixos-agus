@@ -1,0 +1,90 @@
+{
+  inputs,
+  pkgs,
+  userData,
+  pkgs-unstable,
+  theme,
+  userExtras,
+  rhodiumLib,
+  userPreferences,
+  host,
+  ...
+}:
+{
+  imports = [
+    # Themes
+    ../../home/assets/themes
+
+    # Extra Modules
+    ../../home/environment
+    ../../home/modules
+    ../../home/services
+
+    # Main Modules
+    ../../home/apps
+    ../../home/desktop
+    ../../home/development
+    ../../home/security
+    ../../home/shells
+    ../../home/system
+    ../../home/utils
+    ../../home/virtualization
+
+    # Personal additions (apps carried over from the previous configuration)
+    ./personal.nix
+  ];
+
+  # Pass args to all modules
+  _module.args = {
+    inherit
+      userExtras
+      userPreferences
+      rhodiumLib
+      host
+      ;
+  };
+
+  # --- Theme Configuration ---
+  # TODO: Finish this
+  theme = theme;
+
+  # Asset linking
+  # TODO: Add semantic layer so we have clarity that this is a Rhodium module
+  assets = {
+    wallpapers.enable = true; # Symlink wallpapers to data dir
+    colors.enable = true; # Symlink color packs to user data dir
+    icons.enable = true; # Symlink icon packs to user data dir
+    ascii.enable = true; # Symlink ASCII art files to user data dir
+  };
+
+  # Script linking
+  # WARN: Enables all scripts in home/scripts with chmod +x
+  scripts = {
+    enable = true;
+  };
+
+  # Custom services
+  # NOTE: These are custom services located under home/services, and run as systemd daemons
+  userExtraServices = {
+    rh-brave-preload.enable = false; # vmtouch: lock Brave binaries in RAM for instant startup
+    rh-eww.enable = false;
+    rh-firefox-preload.enable = true; # vmtouch: lock Firefox binaries in RAM for instant startup
+    rh-kmonad.enable = true; # Keychron/Pablo-specific devices
+    rh-mako.enable = false;
+    rh-neovim-daemon.enable = false;
+    rh-swaybg.enable = true;
+    rh-system-keyring.enable = true;
+    rh-waybar.enable = false;
+    rh-wifiSwitch.enable = false; # NETGEAR A8000 adapter only
+    rh-wlsunset.enable = false;
+    rh-hdmiAutoSwitch.enable = false;
+  };
+
+  # --- Rh Home Modules ---
+  # --- User Config ---
+  home = {
+    username = userData.user_001.username;
+    homeDirectory = "/home/${userData.user_001.username}";
+    stateVersion = "25.11";
+  };
+}
