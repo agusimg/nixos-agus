@@ -11,7 +11,9 @@
     pkgs.deezer-enhanced # unofficial Deezer desktop client
     pkgs-unstable.antigravity-cli
     pkgs-unstable.affine
-    pkgs.nur.repos.mio.freesmlauncher
+    (pkgs.nur.repos.mio.freesmlauncher.overrideAttrs (_: {
+      __structuredAttrs = false;
+    }))
   ];
 
   home.shellAliases = {
