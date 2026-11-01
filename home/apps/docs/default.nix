@@ -9,7 +9,7 @@
     # ./obsidian.nix # trimmed (size)
     # ./okular.nix # trimmed (size)
     # ./roam.nix
-    # ./standardnotes.nix # trimmed (size)
+    ./standardnotes.nix # trimmed (size)
     ./zathura.nix
   ];
 }

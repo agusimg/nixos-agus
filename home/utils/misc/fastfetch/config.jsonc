@@ -27,7 +27,7 @@
       "width": 12,
     },
     "bar": {
-      "char": "─",
+      "char": "-",
       "width": 16,
       "border": false,
     },
@@ -64,21 +64,21 @@
       "key": "└ └ ◷",
       "keyColor": "red",
     },
-    // {
-    //   "type": "localip",
-    //   "key": "│ ├ ≈",
-    //   "keyColor": "red",
-    // },
-    // {
-    //   "type": "publicip",
-    //   "key": "│ ├ ≋",
-    //   "keyColor": "red",
-    // },
-    // {
-    //   "type": "dns",
-    //   "key": "└ └ ≈",
-    //   "keyColor": "red",
-    // },
+    {
+      "type": "localip",
+      "key": "│ ├ ≈",
+      "keyColor": "red",
+    },
+    {
+      "type": "publicip",
+      "key": "│ ├ ≋",
+      "keyColor": "red",
+    },
+    {
+      "type": "dns",
+      "key": "└ └ ≈",
+      "keyColor": "red",
+    },
     {
       "type": "custom",
       "format": "\u001b[90m└─────────────────────────────────────────────────────────────────┘",

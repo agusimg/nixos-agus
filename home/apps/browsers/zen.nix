@@ -1,6 +1,7 @@
 {
   inputs,
   config,
+  pkgs,
   ...
 }:
 let
@@ -54,8 +55,6 @@ in
         settings = zenProfileSettings;
         # TODO: Empty userChrome for now
         userChrome = "";
-        # TODO: Empty extensions list for now
-        extensions = [ ];
       };
     };
 
