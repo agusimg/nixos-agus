@@ -7,7 +7,10 @@
     enableDefaultConfig = false;
     matchBlocks."*" = {
       addKeysToAgent = "yes";
-      identityFile = [ "~/.ssh/GitHub_NixOS" ];
+      identityFile = [
+        "~/.ssh/GitHub_NixOS"
+        "~/.ssh/id_ed25519"
+      ];
     };
   };
 
