@@ -67,7 +67,19 @@ build_cache_launcher() {
   for file in "${unique_files[@]}"; do
     [[ -f "$file" ]] || continue
 
+    local in_desktop_entry=false
     while IFS='=' read -r key value; do
+      if [[ "$key" =~ ^\[(.*)\]$ ]]; then
+        if [[ "${BASH_REMATCH[1]}" == "Desktop Entry" ]]; then
+          in_desktop_entry=true
+        else
+          in_desktop_entry=false
+        fi
+        continue
+      fi
+
+      [[ "$in_desktop_entry" == false ]] && continue
+
       case "$key" in
       "Name")
         name_map["$file"]="$value"
@@ -85,7 +97,7 @@ build_cache_launcher() {
         nodisplay_map["$file"]="$value"
         ;;
       esac
-    done < <(grep -E "^(Name|GenericName|Categories|Hidden|NoDisplay)=" "$file")
+    done <"$file"
   done
 
   # Filter out hidden/nodisplay entries and sort by name
