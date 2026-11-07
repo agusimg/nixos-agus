@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./containers
-    ./remote
-    ./vm
-  ];
+  #imports = [
+  #  ./containers
+  #  ./remote
+  #  ./vm
+  #];
 }

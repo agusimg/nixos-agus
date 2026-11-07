@@ -64,7 +64,7 @@
           input-fonts.acceptLicense = true;
           permittedInsecurePackages = [
             "jitsi-meet-1.0.8043"
-            "electron-36.9.5"
+            "electron-39.8.10"
           ];
         };
         overlays = [
