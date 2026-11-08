@@ -3,6 +3,10 @@
   ...
 }:
 {
+  imports = [
+    ./lutris.nix
+  ];
+
   # Steam
   # Uses the NixOS module (programs.steam) which handles:
   # - FHS environment with proper graphics library injection
