@@ -4,17 +4,18 @@
   ...
 }:
 let
-  # Proton-GE ships as a Steam compat tool; expose its Wine binary tree to
-  # Lutris by symlinking it into the Lutris runners directory.
-  # The `files/` subdirectory has the standard Wine layout (bin/wine, lib/, …).
+  # Proton-GE ships as a Steam compatibility tool.
+  # Expose the full tool tree to Steam, Lutris (via UMU) and Heroic:
+  # - ~/.local/share/Steam/compatibilitytools.d/
+  # - ~/.local/share/lutris/runners/proton/
   protonGE = pkgs.proton-ge-bin;
-  protonGEWine = "${protonGE.steamcompattool}/files";
-  lutrisRunnerName = protonGE.version; # e.g. GE-Proton10-33
+  protonGETool = "${protonGE.steamcompattool}";
+  protonName = protonGE.version; # e.g. GE-Proton10-33
 
-  # Derive home dir from the user data declared in data/users/users.nix
-  # so this module stays portable across machines and usernames.
   username = users.user_001.username;
-  lutrisRunnersDir = "/home/${username}/.local/share/lutris/runners/wine";
+  steamCompatDir = "/home/${username}/.local/share/Steam/compatibilitytools.d";
+  lutrisProtonDir = "/home/${username}/.local/share/lutris/runners/proton";
+  lutrisWineRunnersDir = "/home/${username}/.local/share/lutris/runners/wine";
 in
 {
   # Lutris — open gaming platform for Linux
@@ -25,12 +26,14 @@ in
     lutris
   ];
 
-  # Expose Proton-GE's Wine tree to Lutris as a runner.
-  # Runs on every `nixos-rebuild switch`; idempotent (ln -sfn).
+  # Expose Proton-GE declaratively across tools.
+  # Also remove any obsolete raw-wine symlinks if they exist.
   system.activationScripts.lutrisProtonGE = {
     text = ''
-      mkdir -p "${lutrisRunnersDir}"
-      ln -sfn "${protonGEWine}" "${lutrisRunnersDir}/${lutrisRunnerName}"
+      mkdir -p "${steamCompatDir}" "${lutrisProtonDir}"
+      ln -sfn "${protonGETool}" "${steamCompatDir}/${protonName}"
+      ln -sfn "${protonGETool}" "${lutrisProtonDir}/${protonName}"
+      rm -f "${lutrisWineRunnersDir}/${protonName}"
     '';
     deps = [ ];
   };
